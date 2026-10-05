@@ -1,0 +1,165 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A20000000000000000000001 /* ThroneCoreSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000001 /* ThroneCoreSmokeTests.swift */; };
+		A20000000000000000000002 /* SmokePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000002 /* SmokePlatform.swift */; };
+		A20000000000000000000003 /* ThroneCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30000000000000000000003 /* ThroneCore.xcframework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A30000000000000000000001 /* ThroneCoreSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThroneCoreSmokeTests.swift; sourceTree = "<group>"; };
+		A30000000000000000000002 /* SmokePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokePlatform.swift; sourceTree = "<group>"; };
+		A30000000000000000000003 /* ThroneCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThroneCore.xcframework; path = ../../deployment/ios/ThroneCore.xcframework; sourceTree = SOURCE_ROOT; };
+		A30000000000000000000004 /* ThroneCoreSmokeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThroneCoreSmokeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A40000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A20000000000000000000003 /* ThroneCore.xcframework in Frameworks */,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A50000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A30000000000000000000001 /* ThroneCoreSmokeTests.swift */,
+				A30000000000000000000002 /* SmokePlatform.swift */,
+				A30000000000000000000003 /* ThroneCore.xcframework */,
+				A50000000000000000000002 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A50000000000000000000002 /* Products */ = {
+			isa = PBXGroup;
+			children = (A30000000000000000000004 /* ThroneCoreSmokeTests.xctest */,);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000000000000000000001 /* ThroneCoreSmokeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A90000000000000000000002 /* Build configuration list for PBXNativeTarget "ThroneCoreSmokeTests" */;
+			buildPhases = (A40000000000000000000002 /* Sources */, A40000000000000000000001 /* Frameworks */,);
+			buildRules = ();
+			dependencies = ();
+			name = ThroneCoreSmokeTests;
+			productName = ThroneCoreSmokeTests;
+			productReference = A30000000000000000000004 /* ThroneCoreSmokeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A60000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {A10000000000000000000001 = {CreatedOnToolsVersion = 16.0; }; };
+			};
+			buildConfigurationList = A90000000000000000000001 /* Build configuration list for PBXProject "ThroneCoreSmoke" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base,);
+			mainGroup = A50000000000000000000001;
+			productRefGroup = A50000000000000000000002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (A10000000000000000000001 /* ThroneCoreSmokeTests */,);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A40000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A20000000000000000000001 /* ThroneCoreSmokeTests.swift in Sources */, A20000000000000000000002 /* SmokePlatform.swift in Sources */,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A80000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphonesimulator;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A80000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphonesimulator;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A80000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "";
+				CODE_SIGNING_ALLOWED = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
+				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication,);
+				PRODUCT_BUNDLE_IDENTIFIER = org.thronecore.ThroneCoreSmokeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphonesimulator;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "";
+			};
+			name = Debug;
+		};
+		A80000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "";
+				CODE_SIGNING_ALLOWED = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
+				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication,);
+				PRODUCT_BUNDLE_IDENTIFIER = org.thronecore.ThroneCoreSmokeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphonesimulator;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A90000000000000000000001 /* Build configuration list for PBXProject "ThroneCoreSmoke" */ = {isa = XCConfigurationList; buildConfigurations = (A80000000000000000000001 /* Debug */, A80000000000000000000002 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A90000000000000000000002 /* Build configuration list for PBXNativeTarget "ThroneCoreSmokeTests" */ = {isa = XCConfigurationList; buildConfigurations = (A80000000000000000000003 /* Debug */, A80000000000000000000004 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = A60000000000000000000001 /* Project object */;
+}
