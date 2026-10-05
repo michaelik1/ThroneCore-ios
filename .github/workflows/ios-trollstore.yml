@@ -1,0 +1,68 @@
+name: iOS TrollStore IPA
+
+on:
+  pull_request:
+    paths:
+      - 'script/package_ios_trollstore.sh'
+      - 'script/prepare_ios_trollstore.py'
+      - 'script/verify_ios_ipa.py'
+      - 'docs/IOS_TROLLSTORE.md'
+      - '.github/workflows/ios-trollstore.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: ios-trollstore-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Package and verify device IPA
+    runs-on: macos-15-intel
+    timeout-minutes: 20
+    env:
+      FRAMEWORK_SOURCE: b7b513917e9da38e4574945348a4886ed91b773e
+      FRAMEWORK_RUN: '37254620239'
+      FRAMEWORK_SHA256: e02c361a6f67067d17f68544149d96ecccee1be66d45cb33708400d67de671c5
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Require unchanged full-runtime sources
+        run: |
+          git diff --exit-code "$FRAMEWORK_SOURCE" HEAD -- core script/build_ios.sh
+      - name: Restore previously tested full XCFramework
+        uses: actions/download-artifact@v8
+        with:
+          name: ThroneCore-ios-${{ env.FRAMEWORK_SOURCE }}
+          run-id: ${{ env.FRAMEWORK_RUN }}
+          github-token: ${{ github.token }}
+          path: deployment/ios
+      - name: Verify framework provenance and archive hash
+        run: |
+          test "$(head -n 1 deployment/ios/build-info.txt)" = "$FRAMEWORK_SOURCE"
+          echo "$FRAMEWORK_SHA256  deployment/ios/ThroneCore.xcframework.zip" | shasum -a 256 -c -
+          ditto -x -k deployment/ios/ThroneCore.xcframework.zip deployment/ios
+      - name: Build, sign, and verify TrollStore package
+        run: ./script/package_ios_trollstore.sh
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ThroneCoreExample-TrollStore-${{ github.sha }}
+          path: |
+            deployment/ios-trollstore/ThroneCoreExample-TrollStore.ipa
+            deployment/ios-trollstore/SHA256SUMS
+            deployment/ios-trollstore/build-info.txt
+            deployment/ios-trollstore/signing-and-platform.txt
+            deployment/ios-trollstore/verification.json
+            deployment/ios-trollstore/INSTALL.md
+          if-no-files-found: error
+          compression-level: 0
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: ThroneCoreExample-TrollStore-build-log-${{ github.sha }}
+          path: deployment/ios-trollstore/build.log
+          if-no-files-found: ignore
