@@ -38,9 +38,36 @@ iOS app -> NEPacketTunnelProvider -> core/mobile -> sing-box + Xray
                     +-- borrowed utun ---+ (Go owns a duplicate)
 ```
 
-The build is the first milestone. NetworkExtension platform glue, a minimal
-Swift host, and traffic/lifecycle validation follow separately. A successful
-XCFramework build does not establish that a VPN tunnel works on a device.
+## Swift runtime smoke tests
+
+After building the framework, run:
+
+```sh
+./script/test_ios.sh
+```
+
+The checked-in `apple/Smoke` Xcode project links the static XCFramework into a
+hostless iOS Simulator XCTest target. It imports `ThroneCore`, calls
+`MobileVersion()`, `MobileXrayVersion()`, and `MobileGoVersion()`, and exercises
+`MobileSetup` / `MobileNewInstance` / `Instance.start()` / `Instance.close()`.
+The Xray case enables eager startup through the same mobile API used by the
+eventual extension. It does not substitute a separate Xray library or only
+check the config parser.
+
+The test platform intentionally has no TUN. These tests cover the Swift/Go
+boundary and non-TUN runtime lifecycle, including error propagation and repeat
+startup; they do not establish VPN routing. The runner selects an installed
+iPhone simulator and records `deployment/ios/runtime-smoke.log` and
+`deployment/ios/RuntimeSmoke.xcresult`.
+
+The generated framework already contains its native static libraries. A final
+Swift consumer must also link the Apple system frameworks and `libresolv`
+listed in the smoke project's `OTHER_LDFLAGS`; do not add another Cronet
+archive or force-load the entire framework.
+
+NetworkExtension platform glue, a minimal Swift host, and device traffic
+validation follow separately. A successful simulator test does not establish
+that a VPN tunnel works on a device.
 Running a real packet tunnel requires a signed app/extension with the Network
 Extension entitlement and a physical iOS device; the simulator can validate
 imports and runtime calls but cannot establish this acceptance criterion.

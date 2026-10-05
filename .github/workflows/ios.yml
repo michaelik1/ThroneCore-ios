@@ -5,6 +5,7 @@ on:
     paths:
       - 'core/**'
       - 'script/build_ios.sh'
+      - 'script/test_ios.sh'
       - 'apple/**'
       - '.github/workflows/ios.yml'
   push:
@@ -12,6 +13,7 @@ on:
     paths:
       - 'core/**'
       - 'script/build_ios.sh'
+      - 'script/test_ios.sh'
       - 'apple/**'
       - '.github/workflows/ios.yml'
   workflow_dispatch:
@@ -46,3 +48,21 @@ jobs:
             deployment/ios/build-info.txt
           if-no-files-found: error
           compression-level: 0
+      - name: Exercise Swift and embedded Xray on iOS Simulator
+        timeout-minutes: 20
+        run: ./script/test_ios.sh
+      - name: Archive simulator test results
+        if: always()
+        run: |
+          if [ -d deployment/ios/RuntimeSmoke.xcresult ]; then
+            ditto -c -k --sequesterRsrc --keepParent deployment/ios/RuntimeSmoke.xcresult deployment/ios/RuntimeSmoke.xcresult.zip
+          fi
+      - name: Upload simulator test results
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ThroneCore-ios-tests-${{ github.sha }}
+          path: |
+            deployment/ios/runtime-smoke.log
+            deployment/ios/RuntimeSmoke.xcresult.zip
+          if-no-files-found: ignore
