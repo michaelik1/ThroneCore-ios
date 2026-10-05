@@ -9,6 +9,8 @@
 		A20000000000000000000001 /* ThroneCoreSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000001 /* ThroneCoreSmokeTests.swift */; };
 		A20000000000000000000002 /* SmokePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000002 /* SmokePlatform.swift */; };
 		A20000000000000000000003 /* ThroneCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30000000000000000000003 /* ThroneCore.xcframework */; };
+		A20000000000000000000004 /* AppleNetworkSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000005; };
+		A20000000000000000000005 /* ThroneApplePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000006; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +18,8 @@
 		A30000000000000000000002 /* SmokePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokePlatform.swift; sourceTree = "<group>"; };
 		A30000000000000000000003 /* ThroneCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThroneCore.xcframework; path = ../../deployment/ios/ThroneCore.xcframework; sourceTree = SOURCE_ROOT; };
 		A30000000000000000000004 /* ThroneCoreSmokeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThroneCoreSmokeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A30000000000000000000005 /* AppleNetworkSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleNetworkSettingsTests.swift; sourceTree = "<group>"; };
+		A30000000000000000000006 /* ThroneApplePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThroneApplePlatform.swift; path = ../Sources/ThroneApplePlatform.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +38,8 @@
 				A30000000000000000000001 /* ThroneCoreSmokeTests.swift */,
 				A30000000000000000000002 /* SmokePlatform.swift */,
 				A30000000000000000000003 /* ThroneCore.xcframework */,
+				A30000000000000000000005 /* AppleNetworkSettingsTests.swift */,
+				A30000000000000000000006 /* ThroneApplePlatform.swift */,
 				A50000000000000000000002 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,7 +91,7 @@
 		A40000000000000000000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (A20000000000000000000001 /* ThroneCoreSmokeTests.swift in Sources */, A20000000000000000000002 /* SmokePlatform.swift in Sources */,);
+			files = (A20000000000000000000001 /* ThroneCoreSmokeTests.swift in Sources */, A20000000000000000000002 /* SmokePlatform.swift in Sources */, A20000000000000000000004, A20000000000000000000005,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
@@ -127,7 +133,7 @@
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
-				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication,);
+				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", NetworkExtension, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication,);
 				PRODUCT_BUNDLE_IDENTIFIER = org.thronecore.ThroneCoreSmokeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = iphonesimulator;
@@ -145,7 +151,7 @@
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
-				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication,);
+				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", NetworkExtension, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication,);
 				PRODUCT_BUNDLE_IDENTIFIER = org.thronecore.ThroneCoreSmokeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = iphonesimulator;
