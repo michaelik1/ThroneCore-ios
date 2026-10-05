@@ -4,6 +4,13 @@ Qt based Desktop cross-platform GUI proxy utility, empowered by [Sing-box](https
 
 Supports Windows 11/10/8/7 / Linux / MacOS out of the box.
 
+## iOS runtime in this fork
+
+`core/mobile` builds `ThroneCore.xcframework` with both sing-box and Xray.
+See [the iOS integration guide](docs/IOS.md) for the macOS build, Swift tests,
+and minimal NetworkExtension host. Signed physical-device VPN validation is
+separate from simulator and compile checks.
+
 <img width="1002" height="789" alt="image" src="https://github.com/user-attachments/assets/af4a8e32-7e55-430c-9402-ec2d665cf71a" />
 
 ### Note on MacOS releases
