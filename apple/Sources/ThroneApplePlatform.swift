@@ -10,7 +10,7 @@ final class ThroneApplePlatform: NSObject, MobileApplePlatformInterfaceProtocol 
     private let pathQueue = DispatchQueue(label: "org.thronecore.network-path")
     private let lock = NSLock()
     private var monitors: [ListenerKey: PathMonitor] = [:]
-    private var latestPath: NWPath?
+    private var latestPath: Network.NWPath?
 
     init(provider: NEPacketTunnelProvider) {
         self.provider = provider
@@ -117,7 +117,7 @@ final class ThroneApplePlatform: NSObject, MobileApplePlatformInterfaceProtocol 
         }
     }
 
-    private func update(_ path: NWPath, key: ListenerKey, entry: PathMonitor) {
+    private func update(_ path: Network.NWPath, key: ListenerKey, entry: PathMonitor) {
         lock.lock()
         guard monitors[key] === entry else {
             lock.unlock()
@@ -160,7 +160,7 @@ private final class PathMonitor {
     let listener: MobileInterfaceUpdateListenerProtocol
     let initialUpdate = DispatchSemaphore(value: 0)
     var initialized = false // Protected by ThroneApplePlatform.lock.
-    var path: NWPath?
+    var path: Network.NWPath?
 
     init(listener: MobileInterfaceUpdateListenerProtocol) { self.listener = listener }
 }
