@@ -122,9 +122,13 @@ container (or an explicitly configured shared container) and set the appropriate
   and simulator; it cannot install a working device VPN
 
 The settings tests deliberately stop before opening a real TUN. Simulator and
-compile success do not establish real device VPN traffic. A signed app/extension,
-a developer team/profile supporting packet-tunnel entitlements, and a physical
-iPhone/iPad are still required for acceptance. Record these results separately:
+compile success do not establish real device VPN traffic. Acceptance requires a
+correctly signed app/extension and a physical iPhone/iPad. Ordinary Xcode
+installation needs a developer team/profile supporting packet-tunnel entitlements;
+an existing supported TrollStore installation is a separate path described in
+[the TrollStore guide](IOS_TROLLSTORE.md). The initial, tester-reported device
+results and remaining gates are in [the validation record](IOS_DEVICE_VALIDATION.md).
+Record these results separately:
 
 1. Connect each sample, generate device traffic, and observe increasing core counters
 2. Verify TCP/UDP traffic and DNS, including IPv4-only and IPv6-capable networks
