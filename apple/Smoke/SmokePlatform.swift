@@ -29,10 +29,10 @@ final class SmokePlatform: NSObject, MobilePlatformInterfaceProtocol {
     }
 
     func localDNSTransport() -> MobileLocalDNSTransportProtocol? { nil }
-    func usePlatformAutoDetectInterfaceControl() -> Bool { false }
+    func usePlatformAutoDetectControl() -> Bool { false }
     func useProcFS() -> Bool { false }
 
-    func autoDetectInterfaceControl(_ fd: Int32) throws {
+    func autoDetectControl(_ fd: Int32) throws {
         throw smokeError("Socket protection is not implemented by this offline mock")
     }
 
