@@ -28,11 +28,16 @@ struct ThroneCoreExampleApp: App {
                             .font(.system(.caption, design: .monospaced))
                             .textSelection(.enabled)
                     }
+                    Section(header: Text("Disconnect diagnostics")) {
+                        Button("Read last disconnect error") { vpn.readDisconnectError() }
+                            .disabled(vpn.busy || vpn.isActive)
+                    }
                     if !vpn.message.isEmpty {
                         Section(header: Text("Last error")) { Text(vpn.message) }
                     }
                     Section {
-                        Text("Requires developer signing and a physical iPhone or iPad. Simulator builds only check compilation.")
+                        Text("Build \(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown")")
+                        Text("Requires a physical iPhone or iPad, installed with developer signing or an existing supported TrollStore. Simulator tests do not establish device VPN behavior.")
                         Text("Both routes use your existing internet connection. Xray runs locally with a freedom outbound; it is not a remote privacy proxy.")
                         Text("The examples send DNS queries to Cloudflare over HTTPS.")
                         Text("includeAllNetworks is off. This example does not provide a kill switch or a fail-closed guarantee.")

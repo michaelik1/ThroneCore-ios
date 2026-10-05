@@ -12,6 +12,9 @@
 		A20000000000000000000004 /* AppleNetworkSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000005; };
 		A20000000000000000000005 /* ThroneApplePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000006; };
 		A20000000000000000000006 /* XrayTrafficTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000007; };
+		A20000000000000000000007 /* sing-box-direct.json in Resources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000008 /* sing-box-direct.json */; };
+		A20000000000000000000008 /* sing-box-xray.json in Resources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000009 /* sing-box-xray.json */; };
+		A20000000000000000000009 /* xray-loopback.json in Resources */ = {isa = PBXBuildFile; fileRef = A3000000000000000000000A /* xray-loopback.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		A30000000000000000000005 /* AppleNetworkSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleNetworkSettingsTests.swift; sourceTree = "<group>"; };
 		A30000000000000000000006 /* ThroneApplePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThroneApplePlatform.swift; path = ../Sources/ThroneApplePlatform.swift; sourceTree = SOURCE_ROOT; };
 		A30000000000000000000007 /* XrayTrafficTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayTrafficTests.swift; sourceTree = "<group>"; };
+		A30000000000000000000008 /* sing-box-direct.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "sing-box-direct.json"; path = "../Example/Configs/sing-box-direct.json"; sourceTree = SOURCE_ROOT; };
+		A30000000000000000000009 /* sing-box-xray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "sing-box-xray.json"; path = "../Example/Configs/sing-box-xray.json"; sourceTree = SOURCE_ROOT; };
+		A3000000000000000000000A /* xray-loopback.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "xray-loopback.json"; path = "../Example/Configs/xray-loopback.json"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,9 @@
 				A30000000000000000000005 /* AppleNetworkSettingsTests.swift */,
 				A30000000000000000000006 /* ThroneApplePlatform.swift */,
 				A30000000000000000000007 /* XrayTrafficTests.swift */,
+				A30000000000000000000008 /* sing-box-direct.json */,
+				A30000000000000000000009 /* sing-box-xray.json */,
+				A3000000000000000000000A /* xray-loopback.json */,
 				A50000000000000000000002 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,7 +68,7 @@
 		A10000000000000000000001 /* ThroneCoreSmokeTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A90000000000000000000002 /* Build configuration list for PBXNativeTarget "ThroneCoreSmokeTests" */;
-			buildPhases = (A40000000000000000000002 /* Sources */, A40000000000000000000001 /* Frameworks */,);
+			buildPhases = (A40000000000000000000002 /* Sources */, A40000000000000000000001 /* Frameworks */, A40000000000000000000003 /* Resources */,);
 			buildRules = ();
 			dependencies = ();
 			name = ThroneCoreSmokeTests;
@@ -89,6 +98,19 @@
 			targets = (A10000000000000000000001 /* ThroneCoreSmokeTests */,);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A40000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A20000000000000000000007 /* sing-box-direct.json in Resources */,
+				A20000000000000000000008 /* sing-box-xray.json in Resources */,
+				A20000000000000000000009 /* xray-loopback.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A40000000000000000000002 /* Sources */ = {

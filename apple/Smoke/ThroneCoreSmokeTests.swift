@@ -95,6 +95,95 @@ final class ThroneCoreSmokeTests: XCTestCase {
         }
     }
 
+    func testBundledDirectConfigurationStartsAndClosesWithoutTUN() throws {
+        let options = MobileStartOptions()
+        options.coreConfig = try encodedConfiguration(exampleCoreConfiguration("sing-box-direct"))
+        options.needXray = false
+        try assertExampleStartsAndCloses(options)
+    }
+
+    func testEmptyDirectDNSDetourFailsDuringStart() throws {
+        var configuration = try exampleCoreConfiguration("sing-box-direct")
+        var dns = try XCTUnwrap(configuration["dns"] as? [String: Any])
+        var servers = try XCTUnwrap(dns["servers"] as? [[String: Any]])
+        let index = try XCTUnwrap(servers.firstIndex { $0["tag"] as? String == "example-dns" })
+        // Reintroduce the shipped defect into the actual sample. Construction
+        // accepts it; HTTPS DNS initializes this invalid detour only during Start.
+        servers[index]["detour"] = "direct"
+        dns["servers"] = servers
+        configuration["dns"] = dns
+        let options = MobileStartOptions()
+        options.coreConfig = try encodedConfiguration(configuration)
+        options.needXray = false
+
+        let platform = SmokePlatform()
+        var error: NSError?
+        let instance = MobileNewInstance(platform, options, &error)
+        defer { try? instance?.close() }
+        if let error = error { throw error }
+        let core = try XCTUnwrap(instance, "The invalid detour should survive construction")
+        XCTAssertThrowsError(try core.start()) { error in
+            XCTAssertTrue(error.localizedDescription.contains("detour to an empty direct outbound makes no sense"),
+                          "Unexpected startup error: \(error.localizedDescription)")
+        }
+        try core.close()
+        XCTAssertEqual(platform.snapshot.tunOpens, 0)
+        XCTAssertEqual(platform.snapshot.monitorStarts, platform.snapshot.monitorCloses)
+        XCTAssertFalse(platform.snapshot.hasMonitor, "A failed Start must release the interface monitor")
+    }
+
+    func testBundledXrayConfigurationStartsAndClosesWithoutTUN() throws {
+        let options = MobileStartOptions()
+        options.coreConfig = try encodedConfiguration(exampleCoreConfiguration("sing-box-xray"))
+        options.needXray = true
+        options.xrayLazyStart = false
+        options.xrayConfig = try String(contentsOf: exampleResource("xray-loopback"), encoding: .utf8)
+        try assertExampleStartsAndCloses(options)
+    }
+
+    private func assertExampleStartsAndCloses(_ options: MobileStartOptions) throws {
+        let platform = SmokePlatform()
+        // Exercise reconnect with the same sample, including reclaiming the
+        // bundled Xray listener when present. No DNS request or remote dial occurs.
+        for cycle in 1...2 {
+            var error: NSError?
+            let instance = MobileNewInstance(platform, options, &error)
+            defer { try? instance?.close() }
+            if let error = error { throw error }
+            let core = try XCTUnwrap(instance, "NewInstance returned neither an instance nor an error")
+            try core.start()
+            XCTAssertNil(core.localDNSFailure())
+            XCTAssertEqual(platform.snapshot.monitorStarts, cycle)
+            XCTAssertTrue(platform.snapshot.hasMonitor)
+            XCTAssertEqual(platform.snapshot.tunOpens, 0, "Example smoke tests must never request TUN")
+            try core.close()
+            XCTAssertEqual(platform.snapshot.monitorCloses, cycle)
+            XCTAssertFalse(platform.snapshot.hasMonitor)
+        }
+    }
+
+    private func exampleResource(_ name: String) throws -> URL {
+        try XCTUnwrap(Bundle(for: ThroneCoreSmokeTests.self).url(forResource: name, withExtension: "json"),
+                      "Missing bundled Example/Configs resource: \(name).json")
+    }
+
+    private func exampleCoreConfiguration(_ name: String) throws -> [String: Any] {
+        let data = try Data(contentsOf: exampleResource(name))
+        var configuration = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let inbounds = try XCTUnwrap(configuration["inbounds"] as? [[String: Any]])
+        XCTAssertEqual(inbounds.filter { $0["type"] as? String == "tun" }.count, 1,
+                       "Expected one TUN inbound in the device example")
+        // Keep all DNS, outbound, routing, and other settings exactly as bundled.
+        // Only NetworkExtension/TUN requires a physical-device test instead.
+        configuration["inbounds"] = inbounds.filter { $0["type"] as? String != "tun" }
+        return configuration
+    }
+
+    private func encodedConfiguration(_ configuration: [String: Any]) throws -> String {
+        let data = try JSONSerialization.data(withJSONObject: configuration, options: [.sortedKeys])
+        return try XCTUnwrap(String(data: data, encoding: .utf8))
+    }
+
     private func startOptions() -> MobileStartOptions {
         let options = MobileStartOptions()
         options.coreConfig = """

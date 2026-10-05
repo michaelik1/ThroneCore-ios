@@ -3,6 +3,9 @@ name: iOS TrollStore IPA
 on:
   pull_request:
     paths:
+      - 'apple/Example/**'
+      - 'apple/Smoke/**'
+      - 'script/test_ios.sh'
       - 'script/package_ios_trollstore.sh'
       - 'script/prepare_ios_trollstore.py'
       - 'script/verify_ios_ipa.py'
@@ -46,6 +49,9 @@ jobs:
           test "$(head -n 1 deployment/ios/build-info.txt)" = "$FRAMEWORK_SOURCE"
           echo "$FRAMEWORK_SHA256  deployment/ios/ThroneCore.xcframework.zip" | shasum -a 256 -c -
           ditto -x -k deployment/ios/ThroneCore.xcframework.zip deployment/ios
+      - name: Run simulator lifecycle regressions against full runtime
+        timeout-minutes: 15
+        run: ./script/test_ios.sh
       - name: Build, sign, and verify TrollStore package
         run: ./script/package_ios_trollstore.sh
       - uses: actions/upload-artifact@v7.0.1
@@ -64,5 +70,7 @@ jobs:
         if: always()
         with:
           name: ThroneCoreExample-TrollStore-build-log-${{ github.sha }}
-          path: deployment/ios-trollstore/build.log
+          path: |
+            deployment/ios-trollstore/build.log
+            deployment/ios/runtime-smoke.log
           if-no-files-found: ignore
