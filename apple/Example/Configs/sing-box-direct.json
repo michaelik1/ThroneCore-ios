@@ -12,8 +12,7 @@
         "tls": {
           "enabled": true,
           "server_name": "cloudflare-dns.com"
-        },
-        "detour": "direct"
+        }
       }
     ],
     "final": "example-dns"

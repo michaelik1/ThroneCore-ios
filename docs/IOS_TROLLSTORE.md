@@ -14,9 +14,7 @@ Xray and all iOS build feature tags. It is not the full Throne application UI.
 - Static IPA checks establish bundle structure, device architecture, deployment
   target, entitlements, and signature integrity. They do **not** establish that
   the VPN works on a physical phone. That is the purpose of the test below.
-- The host's generic “Requires developer signing” text describes the ordinary
-  Xcode installation path; an existing supported TrollStore is the alternative
-  used for this package. Developer Mode is not requested by this package.
+- Developer Mode is not requested by this package.
 
 ## Install on the phone
 
@@ -58,7 +56,14 @@ via HTTPS. The sample has no subscription import, account, secret storage, bundl
 GeoIP/geosite databases, or remote proxy configuration editor. It has no kill
 switch or fail-closed guarantee. No real proxy credentials are included.
 
+Build 2 fixes direct-mode startup: the modern HTTPS DNS transport must use its
+own default direct dialer, rather than detouring to an empty direct outbound.
+The Xray mode still deliberately uses `detour: "xray"`.
+
 If the tunnel never reaches Connected, report the status and **Last error** text.
+On iOS 16 or newer the app fetches the system's last disconnect error automatically;
+**Read last disconnect error** retries it while disconnected. Errors may still be
+unavailable after some system failures. Live core counters require a running tunnel.
 A provider crash can prevent status delivery; do not interpret missing counters as
 a successful connection. Physical-device extension memory and routing behavior
 are still acceptance gates. Remove this test app through TrollStore when finished;

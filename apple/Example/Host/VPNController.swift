@@ -12,6 +12,8 @@ final class VPNController: ObservableObject {
 
     private var manager: NETunnelProviderManager?
     private var statusObserver: NSObjectProtocol?
+    private var diagnosticGeneration = UUID()
+    private var stopRequested = false
     private var owner: String { Bundle.main.bundleIdentifier! }
     private var providerIdentifier: String { "\(owner).PacketTunnel" }
 
@@ -54,6 +56,9 @@ final class VPNController: ObservableObject {
         guard !busy, !isActive else { return }
         busy = true
         message = ""
+        diagnosticGeneration = UUID()
+        stopRequested = false
+        coreStatus = "Starting \(mode.title). Counters are available after the tunnel connects."
         // Reload first; only a provider ID + owner marker match can be modified.
         loadOwnManager { [weak self] error in
             guard let self = self else { return }
@@ -98,6 +103,8 @@ final class VPNController: ObservableObject {
 
     func stop() {
         guard !busy, let manager = manager, isOwnManager(manager) else { return }
+        stopRequested = true
+        diagnosticGeneration = UUID() // Ignore any error callback from an older attempt.
         manager.connection.stopVPNTunnel()
         refreshConnectionStatus()
     }
@@ -109,10 +116,13 @@ final class VPNController: ObservableObject {
             coreStatus = "The packet tunnel must be connected before reading its status."
             return
         }
+        let generation = diagnosticGeneration
         do {
             try session.sendProviderMessage(Data("status".utf8)) { [weak self] response in
                 Task { @MainActor [weak self] in
-                    self?.coreStatus = response.flatMap { String(data: $0, encoding: .utf8) }
+                    guard let self = self, self.diagnosticGeneration == generation,
+                          self.manager?.connection === session, session.status == .connected else { return }
+                    self.coreStatus = response.flatMap { String(data: $0, encoding: .utf8) }
                         ?? "The provider returned no status."
                 }
             }
@@ -143,7 +153,47 @@ final class VPNController: ObservableObject {
     }
 
     private func refreshConnectionStatus() {
+        let previous = status
         status = manager?.connection.status ?? .invalid
+        guard status != previous else { return }
+        if status == .connecting {
+            stopRequested = false
+            diagnosticGeneration = UUID()
+            coreStatus = "Starting \(mode.title). Counters are available after the tunnel connects."
+        } else if status == .connected {
+            stopRequested = false
+            diagnosticGeneration = UUID()
+            message = ""
+            coreStatus = "Connected. Tap Read status and counters, generate traffic, then read again."
+        } else if status == .disconnected {
+            coreStatus = "Disconnected. Live core counters are unavailable until the tunnel connects."
+            if !stopRequested, [.connecting, .connected, .reasserting, .disconnecting].contains(previous) {
+                readDisconnectError()
+            }
+        }
+    }
+
+    /// startVPNTunnel() starts an asynchronous operation. A later provider failure
+    /// arrives as a status change, not as a thrown error from that original call.
+    func readDisconnectError() {
+        guard let manager = manager, isOwnManager(manager), !isActive else { return }
+        guard #available(iOS 16.0, *) else {
+            message = "System disconnect details require iOS 16 or newer. Check the device's NetworkExtension/crash diagnostics."
+            return
+        }
+        let generation = diagnosticGeneration
+        let connection = manager.connection
+        connection.fetchLastDisconnectError { [weak self] error in
+            Task { @MainActor [weak self] in
+                guard let self = self, self.diagnosticGeneration == generation,
+                      !self.isActive, self.manager?.connection === connection else { return }
+                if let error = error as NSError? {
+                    self.message = "\(error.domain) (\(error.code)): \(error.localizedDescription)"
+                } else if self.message.isEmpty {
+                    self.message = "iOS did not provide a disconnect error. This does not confirm a successful tunnel start."
+                }
+            }
+        }
     }
 
     private func finish(_ error: Error?) {
