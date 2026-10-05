@@ -1,0 +1,198 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B20000000000000000000001 /* ThroneCoreExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30000000000000000000001; };
+		B20000000000000000000002 /* VPNController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30000000000000000000002; };
+		B20000000000000000000003 /* ExampleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30000000000000000000003; };
+		B20000000000000000000004 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30000000000000000000004; };
+		B20000000000000000000005 /* ThroneApplePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30000000000000000000005; };
+		B20000000000000000000006 /* ThroneCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30000000000000000000006; };
+		B20000000000000000000007 /* PacketTunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B30000000000000000000008; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B20000000000000000000008 /* sing-box-direct.json in Resources */ = {isa = PBXBuildFile; fileRef = B30000000000000000000009; };
+		B20000000000000000000009 /* sing-box-xray.json in Resources */ = {isa = PBXBuildFile; fileRef = B3000000000000000000000A; };
+		B2000000000000000000000A /* xray-loopback.json in Resources */ = {isa = PBXBuildFile; fileRef = B3000000000000000000000B; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B70000000000000000000001 = {isa = PBXContainerItemProxy; containerPortal = B60000000000000000000001; proxyType = 1; remoteGlobalIDString = B10000000000000000000002; remoteInfo = PacketTunnel; };
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B40000000000000000000004 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (B20000000000000000000007, );
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B30000000000000000000001 /* ThroneCoreExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host/ThroneCoreExampleApp.swift; sourceTree = SOURCE_ROOT; };
+		B30000000000000000000002 /* VPNController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host/VPNController.swift; sourceTree = SOURCE_ROOT; };
+		B30000000000000000000003 /* ExampleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host/ExampleConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		B30000000000000000000004 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/PacketTunnelProvider.swift; sourceTree = SOURCE_ROOT; };
+		B30000000000000000000005 /* ThroneApplePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThroneApplePlatform.swift; path = ../Sources/ThroneApplePlatform.swift; sourceTree = SOURCE_ROOT; };
+		B30000000000000000000006 /* ThroneCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThroneCore.xcframework; path = ../../deployment/ios/ThroneCore.xcframework; sourceTree = SOURCE_ROOT; };
+		B30000000000000000000007 /* ThroneCoreExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThroneCoreExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B30000000000000000000008 /* PacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B30000000000000000000009 /* sing-box-direct.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Configs/sing-box-direct.json; sourceTree = SOURCE_ROOT; };
+		B3000000000000000000000A /* sing-box-xray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Configs/sing-box-xray.json; sourceTree = SOURCE_ROOT; };
+		B3000000000000000000000B /* xray-loopback.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Configs/xray-loopback.json; sourceTree = SOURCE_ROOT; };
+		B3000000000000000000000C /* Host Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Host Info.plist"; path = Host/Info.plist; sourceTree = SOURCE_ROOT; };
+		B3000000000000000000000D /* Host.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Host/Host.entitlements; sourceTree = SOURCE_ROOT; };
+		B3000000000000000000000E /* PacketTunnel Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PacketTunnel Info.plist"; path = PacketTunnel/Info.plist; sourceTree = SOURCE_ROOT; };
+		B3000000000000000000000F /* PacketTunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PacketTunnel/PacketTunnel.entitlements; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B40000000000000000000002 /* Host Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		B40000000000000000000006 /* Extension Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (B20000000000000000000006, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B50000000000000000000001 = {
+			isa = PBXGroup;
+			children = (B50000000000000000000003, B50000000000000000000004, B50000000000000000000005, B30000000000000000000005, B30000000000000000000006, B50000000000000000000002, );
+			sourceTree = "<group>";
+		};
+		B50000000000000000000002 /* Products */ = {isa = PBXGroup; children = (B30000000000000000000007, B30000000000000000000008, ); name = Products; sourceTree = "<group>"; };
+		B50000000000000000000003 /* Host */ = {isa = PBXGroup; children = (B30000000000000000000001, B30000000000000000000002, B30000000000000000000003, B3000000000000000000000C, B3000000000000000000000D, ); name = Host; sourceTree = "<group>"; };
+		B50000000000000000000004 /* PacketTunnel */ = {isa = PBXGroup; children = (B30000000000000000000004, B3000000000000000000000E, B3000000000000000000000F, ); name = PacketTunnel; sourceTree = "<group>"; };
+		B50000000000000000000005 /* Configs */ = {isa = PBXGroup; children = (B30000000000000000000009, B3000000000000000000000A, B3000000000000000000000B, ); name = Configs; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B10000000000000000000001 /* ThroneCoreExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B90000000000000000000002;
+			buildPhases = (B40000000000000000000001, B40000000000000000000002, B40000000000000000000003, B40000000000000000000004, );
+			buildRules = ();
+			dependencies = (B70000000000000000000002, );
+			name = ThroneCoreExample;
+			productName = ThroneCoreExample;
+			productReference = B30000000000000000000007;
+			productType = "com.apple.product-type.application";
+		};
+		B10000000000000000000002 /* PacketTunnel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B90000000000000000000003;
+			buildPhases = (B40000000000000000000005, B40000000000000000000006, );
+			buildRules = ();
+			dependencies = ();
+			name = PacketTunnel;
+			productName = PacketTunnel;
+			productReference = B30000000000000000000008;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B60000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B10000000000000000000001 = {CreatedOnToolsVersion = 16.0; SystemCapabilities = {com.apple.NetworkExtensions = {enabled = 1; }; }; };
+					B10000000000000000000002 = {CreatedOnToolsVersion = 16.0; SystemCapabilities = {com.apple.NetworkExtensions = {enabled = 1; }; }; };
+				};
+			};
+			buildConfigurationList = B90000000000000000000001;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, );
+			mainGroup = B50000000000000000000001;
+			productRefGroup = B50000000000000000000002;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (B10000000000000000000001, B10000000000000000000002, );
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B40000000000000000000003 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B20000000000000000000008, B20000000000000000000009, B2000000000000000000000A, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B40000000000000000000001 /* Host Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B20000000000000000000001, B20000000000000000000002, B20000000000000000000003, ); runOnlyForDeploymentPostprocessing = 0; };
+		B40000000000000000000005 /* Extension Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B20000000000000000000004, B20000000000000000000005, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B70000000000000000000002 = {isa = PBXTargetDependency; target = B10000000000000000000002; targetProxy = B70000000000000000000001; };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B80000000000000000000001 /* Project Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {CLANG_ENABLE_MODULES = YES; CODE_SIGN_STYLE = Automatic; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_BITCODE = NO; GCC_OPTIMIZATION_LEVEL = 0; IPHONEOS_DEPLOYMENT_TARGET = 15.0; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; THRONE_APP_BUNDLE_IDENTIFIER = org.thronecore.example; };
+			name = Debug;
+		};
+		B80000000000000000000002 /* Project Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {CLANG_ENABLE_MODULES = YES; CODE_SIGN_STYLE = Automatic; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; ENABLE_BITCODE = NO; IPHONEOS_DEPLOYMENT_TARGET = 15.0; SDKROOT = iphoneos; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; THRONE_APP_BUNDLE_IDENTIFIER = org.thronecore.example; };
+			name = Release;
+		};
+		B80000000000000000000003 /* Host Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {CODE_SIGN_ENTITLEMENTS = Host/Host.entitlements; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Host/Info.plist; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", ); PRODUCT_BUNDLE_IDENTIFIER = "$(THRONE_APP_BUNDLE_IDENTIFIER)"; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; };
+			name = Debug;
+		};
+		B80000000000000000000004 /* Host Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {CODE_SIGN_ENTITLEMENTS = Host/Host.entitlements; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Host/Info.plist; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", ); PRODUCT_BUNDLE_IDENTIFIER = "$(THRONE_APP_BUNDLE_IDENTIFIER)"; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; };
+			name = Release;
+		};
+		B80000000000000000000005 /* Extension Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PacketTunnel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks", );
+				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication, );
+				PRODUCT_BUNDLE_IDENTIFIER = "$(THRONE_APP_BUNDLE_IDENTIFIER).PacketTunnel";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+			};
+			name = Debug;
+		};
+		B80000000000000000000006 /* Extension Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PacketTunnel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks", );
+				OTHER_LDFLAGS = ("$(inherited)", "-lresolv", "-framework", CoreFoundation, "-framework", CoreGraphics, "-framework", CoreText, "-framework", Foundation, "-framework", Security, "-framework", UIKit, "-framework", CFNetwork, "-framework", Network, "-framework", MobileCoreServices, "-framework", SystemConfiguration, "-framework", UniformTypeIdentifiers, "-framework", CoreTelephony, "-framework", CryptoTokenKit, "-framework", LocalAuthentication, );
+				PRODUCT_BUNDLE_IDENTIFIER = "$(THRONE_APP_BUNDLE_IDENTIFIER).PacketTunnel";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B90000000000000000000001 = {isa = XCConfigurationList; buildConfigurations = (B80000000000000000000001, B80000000000000000000002, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		B90000000000000000000002 = {isa = XCConfigurationList; buildConfigurations = (B80000000000000000000003, B80000000000000000000004, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		B90000000000000000000003 = {isa = XCConfigurationList; buildConfigurations = (B80000000000000000000005, B80000000000000000000006, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = B60000000000000000000001;
+}

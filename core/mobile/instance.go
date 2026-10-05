@@ -97,6 +97,12 @@ func NewInstance(platform PlatformInterface, options *StartOptions) (*Instance, 
 		}
 	}
 	installProtector(platform)
+	constructed := false
+	defer func() {
+		if !constructed {
+			releaseProtector(platform)
+		}
+	}()
 
 	holder := new(boxContextHolder)
 	xrayStack, err := startMainXray(options, xrayPreparer(options.XrayOutboundDNSStrategy, holder.get))
@@ -127,6 +133,7 @@ func NewInstance(platform PlatformInterface, options *StartOptions) (*Instance, 
 	// Published before Start, not after: a remote rule-set fetched during Start may already dial
 	// through an Xray outbound, whose resolver needs this box's DNS router (see xraydns).
 	holder.publish(ctx)
+	constructed = true
 	return &Instance{
 		platform:       platform,
 		handle:         &boxHandle{ctx: ctx, Box: boxInstance},

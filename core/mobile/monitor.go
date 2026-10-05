@@ -71,8 +71,12 @@ func (m *platformDefaultInterfaceMonitor) UpdateDefaultInterface(interfaceName s
 }
 
 func (m *platformDefaultInterfaceMonitor) updateDefaultInterface(interfaceName string, interfaceIndex32 int32, isExpensive bool, isConstrained bool) {
+	m.defaultInterfaceAccess.Lock()
+	m.defaultInterfaceIndex = interfaceIndex32
 	m.isExpensive = isExpensive
 	m.isConstrained = isConstrained
+	m.defaultInterfaceAccess.Unlock()
+	// UpdateInterfaces calls back into NetworkInterfaces; never hold the state lock here.
 	err := m.networkManager.UpdateInterfaces()
 	if err != nil {
 		m.logger.Error(E.Cause(err, "update interfaces"))
@@ -117,5 +121,5 @@ func (m *platformDefaultInterfaceMonitor) RegisterMyInterface(interfaceName stri
 func (m *platformDefaultInterfaceMonitor) MyInterfaces() []string {
 	m.defaultInterfaceAccess.Lock()
 	defer m.defaultInterfaceAccess.Unlock()
-	return m.myInterfaces
+	return append([]string(nil), m.myInterfaces...)
 }

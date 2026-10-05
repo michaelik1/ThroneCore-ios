@@ -1,4 +1,4 @@
-// Package mobile is the gomobile-bound surface of ThroneCore for Android. It owns the sing-box
+// Package mobile is the gomobile-bound surface of ThroneCore for Android and Apple platforms. It owns the sing-box
 // instance (the fork's root box.New over a context this package builds) and the in-process Xray
 // instances, mirroring internal/rpc and internal/boxmain without their IPC, signal and desktop-only
 // wiring; none of those packages may be imported here.

@@ -24,18 +24,22 @@ var _ adapter.PlatformInterface = (*platformInterfaceWrapper)(nil)
 // refresh the wrong box.
 type platformInterfaceWrapper struct {
 	iif                    PlatformInterface
+	apple                  *applePlatform
 	useProcFS              bool
 	networkManager         adapter.NetworkManager
 	myTunName              string
 	myTunAddress           []netip.Addr
 	defaultInterfaceAccess sync.Mutex
 	defaultInterface       *control.Interface
-	isExpensive            bool
-	isConstrained          bool
+	// The platform path index can change before the finder publishes defaultInterface.
+	defaultInterfaceIndex int32
+	isExpensive           bool
+	isConstrained         bool
 }
 
 func newPlatformInterfaceWrapper(iif PlatformInterface) *platformInterfaceWrapper {
-	return &platformInterfaceWrapper{iif: iif, useProcFS: iif.UseProcFS()}
+	apple, _ := iif.(*applePlatform)
+	return &platformInterfaceWrapper{iif: iif, apple: apple, useProcFS: iif.UseProcFS(), defaultInterfaceIndex: -1}
 }
 
 func (w *platformInterfaceWrapper) Initialize(networkManager adapter.NetworkManager) error {
@@ -80,9 +84,11 @@ func (w *platformInterfaceWrapper) OpenInterface(options *tun.Options, platformO
 		return nil, E.Cause(err, "dup tun file descriptor")
 	}
 	options.FileDescriptor = dupFd
+	w.defaultInterfaceAccess.Lock()
 	w.myTunName = options.Name
 	w.myTunAddress = myTunAddress(options)
-	return tun.New(*options)
+	w.defaultInterfaceAccess.Unlock()
+	return newTun(*options)
 }
 
 func (w *platformInterfaceWrapper) ProcessPlatformOptions(options option.TunPlatformOptions) error {
@@ -101,7 +107,9 @@ func myTunAddress(options *tun.Options) []netip.Addr {
 }
 
 func (w *platformInterfaceWrapper) MyInterfaceAddress() []netip.Addr {
-	return w.myTunAddress
+	w.defaultInterfaceAccess.Lock()
+	defer w.defaultInterfaceAccess.Unlock()
+	return append([]netip.Addr(nil), w.myTunAddress...)
 }
 
 func (w *platformInterfaceWrapper) UsePlatformDefaultInterfaceMonitor() bool {
@@ -124,11 +132,14 @@ func (w *platformInterfaceWrapper) NetworkInterfaces() ([]adapter.NetworkInterfa
 	if err != nil {
 		return nil, err
 	}
+	w.defaultInterfaceAccess.Lock()
+	myTunName := w.myTunName
+	defaultInterfaceIndex := w.defaultInterfaceIndex
+	isExpensive, isConstrained := w.isExpensive, w.isConstrained
+	w.defaultInterfaceAccess.Unlock()
 	var interfaces []adapter.NetworkInterface
 	for _, netInterface := range iteratorToArray[*NetworkInterface](interfaceIterator) {
-		w.defaultInterfaceAccess.Lock()
-		isDefault := netInterface.Name != w.myTunName && w.defaultInterface != nil && int(netInterface.Index) == w.defaultInterface.Index
-		w.defaultInterfaceAccess.Unlock()
+		isDefault := netInterface.Name != myTunName && netInterface.Index == defaultInterfaceIndex
 		interfaces = append(interfaces, adapter.NetworkInterface{
 			Interface: control.Interface{
 				Index:     int(netInterface.Index),
@@ -143,8 +154,8 @@ func (w *platformInterfaceWrapper) NetworkInterfaces() ([]adapter.NetworkInterfa
 				gateway, _ := netip.ParseAddr(it)
 				return gateway.Unmap().WithZone("")
 			}), netip.Addr.IsValid),
-			Expensive:   netInterface.Metered || isDefault && w.isExpensive,
-			Constrained: isDefault && w.isConstrained,
+			Expensive:   netInterface.Metered || isDefault && isExpensive,
+			Constrained: isDefault && isConstrained,
 		})
 	}
 	interfaces = common.UniqBy(interfaces, func(it adapter.NetworkInterface) string {
@@ -154,11 +165,11 @@ func (w *platformInterfaceWrapper) NetworkInterfaces() ([]adapter.NetworkInterfa
 }
 
 func (w *platformInterfaceWrapper) UnderNetworkExtension() bool {
-	return false
+	return w.apple != nil && w.apple.UnderNetworkExtension()
 }
 
 func (w *platformInterfaceWrapper) NetworkExtensionIncludeAllNetworks() bool {
-	return false
+	return w.UnderNetworkExtension() && w.apple.NetworkExtensionIncludeAllNetworks()
 }
 
 func (w *platformInterfaceWrapper) ClearDNSCache() {
@@ -170,7 +181,7 @@ func (w *platformInterfaceWrapper) RequestPermissionForWIFIState() error {
 }
 
 func (w *platformInterfaceWrapper) UsePlatformWIFIMonitor() bool {
-	return true
+	return w.apple == nil
 }
 
 func (w *platformInterfaceWrapper) ReadWIFIState(ctx context.Context) adapter.WIFIState {
@@ -182,7 +193,7 @@ func (w *platformInterfaceWrapper) ReadWIFIState(ctx context.Context) adapter.WI
 }
 
 func (w *platformInterfaceWrapper) UsePlatformConnectionOwnerFinder() bool {
-	return true
+	return w.apple == nil
 }
 
 func (w *platformInterfaceWrapper) FindConnectionOwner(request *adapter.FindConnectionOwnerRequest) (*adapter.ConnectionOwner, error) {
@@ -231,7 +242,7 @@ func (w *platformInterfaceWrapper) FindConnectionOwner(request *adapter.FindConn
 }
 
 func (w *platformInterfaceWrapper) UsePlatformNotification() bool {
-	return true
+	return w.apple == nil
 }
 
 func (w *platformInterfaceWrapper) SendNotification(notification *adapter.Notification) error {
