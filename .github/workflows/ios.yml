@@ -1,0 +1,48 @@
+name: iOS
+
+on:
+  pull_request:
+    paths:
+      - 'core/**'
+      - 'script/build_ios.sh'
+      - 'apple/**'
+      - '.github/workflows/ios.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'core/**'
+      - 'script/build_ios.sh'
+      - 'apple/**'
+      - '.github/workflows/ios.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  xcframework:
+    name: XCFramework (device + simulators)
+    runs-on: macos-15-intel
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-go@v7.0.0
+        with:
+          go-version: '1.27.1'
+          cache-dependency-path: core/go.sum
+      - name: Build full mobile runtime
+        run: ./script/build_ios.sh
+      - name: Archive XCFramework
+        run: ditto -c -k --sequesterRsrc --keepParent deployment/ios/ThroneCore.xcframework deployment/ios/ThroneCore.xcframework.zip
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ThroneCore-ios-${{ github.sha }}
+          path: |
+            deployment/ios/ThroneCore.xcframework.zip
+            deployment/ios/build-info.txt
+          if-no-files-found: error
+          compression-level: 0
