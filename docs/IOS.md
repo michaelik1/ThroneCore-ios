@@ -115,7 +115,8 @@ container (or an explicitly configured shared container) and set the appropriate
 
 - XCFramework build: all three slices, full existing feature tags and both forks
 - Swift simulator suite: version calls, NSError propagation, eager Xray startup,
-  sing-box start/close/reconnect, and Go TUN-options-to-NE-settings translation
+  sing-box start/close/reconnect, real loopback TCP bytes through sing-box → Xray,
+  listener-port release/reuse, and Go TUN-options-to-NE-settings translation
 - Darwin tests: duplicate ownership, close/error cleanup, and external configuration
 - Unsigned example build: Swift host and NetworkExtension compile/link for device
   and simulator; it cannot install a working device VPN

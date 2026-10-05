@@ -47,7 +47,7 @@ final class ThroneCoreSmokeTests: XCTestCase {
         XCTAssertFalse(core.isEmpty)
         XCTAssertFalse(xray.isEmpty)
         XCTAssertTrue(go.hasPrefix("go"), go)
-        XCTAssertTrue(go.contains("/"), "Expected the Go target OS/architecture: \(go)")
+        XCTAssertTrue(go.contains(", ios/"), "Expected an iOS Go runtime: \(go)")
     }
 
     func testEagerXrayConstructionReportsNSError() {

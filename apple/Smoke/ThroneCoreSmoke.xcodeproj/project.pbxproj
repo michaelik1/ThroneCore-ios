@@ -11,6 +11,7 @@
 		A20000000000000000000003 /* ThroneCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30000000000000000000003 /* ThroneCore.xcframework */; };
 		A20000000000000000000004 /* AppleNetworkSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000005; };
 		A20000000000000000000005 /* ThroneApplePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000006; };
+		A20000000000000000000006 /* XrayTrafficTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000007; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		A30000000000000000000004 /* ThroneCoreSmokeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThroneCoreSmokeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A30000000000000000000005 /* AppleNetworkSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleNetworkSettingsTests.swift; sourceTree = "<group>"; };
 		A30000000000000000000006 /* ThroneApplePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThroneApplePlatform.swift; path = ../Sources/ThroneApplePlatform.swift; sourceTree = SOURCE_ROOT; };
+		A30000000000000000000007 /* XrayTrafficTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrayTrafficTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 				A30000000000000000000003 /* ThroneCore.xcframework */,
 				A30000000000000000000005 /* AppleNetworkSettingsTests.swift */,
 				A30000000000000000000006 /* ThroneApplePlatform.swift */,
+				A30000000000000000000007 /* XrayTrafficTests.swift */,
 				A50000000000000000000002 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,7 +94,7 @@
 		A40000000000000000000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (A20000000000000000000001 /* ThroneCoreSmokeTests.swift in Sources */, A20000000000000000000002 /* SmokePlatform.swift in Sources */, A20000000000000000000004, A20000000000000000000005,);
+			files = (A20000000000000000000001 /* ThroneCoreSmokeTests.swift in Sources */, A20000000000000000000002 /* SmokePlatform.swift in Sources */, A20000000000000000000004, A20000000000000000000005, A20000000000000000000006,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
