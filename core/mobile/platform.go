@@ -2,9 +2,8 @@ package mobile
 
 import C "github.com/sagernet/sing-box/constant"
 
-// Shapes mirror sing-box's libbox so the Kotlin side can follow sing-box-for-android. Members
-// Android never needs (shell, SSH, bridge, neighbor table, Apple network-extension flags) are not
-// asked of the platform; the wrapper answers them itself.
+// PlatformInterface preserves the Android contract, shaped after sing-box's libbox. Apple hosts
+// implement the smaller ApplePlatformInterface and pass it through NewApplePlatform instead.
 type PlatformInterface interface {
 	LocalDNSTransport() LocalDNSTransport
 	UsePlatformAutoDetectInterfaceControl() bool
